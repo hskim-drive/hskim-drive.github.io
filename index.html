@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>70%/30% iframes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .container iframe {
+            height: 100%;
+            border: none;
+        }
+        #left-iframe {
+            width: 30%; /* 좌측 iframe의 폭을 30%로 설정 */
+        }
+        #right-iframe {
+            width: 70%; /* 우측 iframe의 폭을 70%로 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=149562&source=www.race-monitor.com" title="Race Monitor"></iframe>
+        <iframe id="right-iframe" src="https://docs.google.com/spreadsheets/d/1jNNq7GoW4-voGgZuELI4vhVZGocJnmAXMnzApGycHYk/edit?gid=0#gid=0" title="Google Sheets"></iframe>
+    </div>
+</body>
+</html>
