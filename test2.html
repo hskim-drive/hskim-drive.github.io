@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>70%/30% iframes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .container iframe {
+            border: none;
+        }
+
+        /* 좌측을 다시 수직으로 나눌 수 있도록 */
+        .left-container {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .left-container iframe {
+            width: 100%;
+            height: 50%; /* 위아래 각각 50% */
+        }
+
+        #right-iframe {
+            width: 70%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 영역을 상하로 나누기 -->
+        <div class="left-container">
+            <iframe src="https://api.race-monitor.com/Timing/?raceid=153356&source=www.race-monitor.com" title="Race Monitor 상단"></iframe>
+            <iframe src="https://hnf.3secondz.com/" title="3secondz 하단"></iframe>
+        </div>
+        <!-- 오른쪽 iframe 그대로 유지 -->
+        <iframe id="right-iframe" src="https://docs.google.com/spreadsheets/d/18nXQfYQpcehVBrU9Q6uafHCna8O-ztRj8X0imQSreeg/edit?gid=0#gid=0" title="Google Sheets"></iframe>
+    </div>
+</body>
+</html>
