@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>70%/30% Split with Vertical Right Division</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .container iframe {
+            border: none;
+        }
+        #left-iframe {
+            width: 30%;
+            height: 100%;
+        }
+        .right-container {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #map-iframe {
+            height: 70%;
+            width: 100%;
+        }
+        #clock-iframe {
+            height: 30%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=154758&source=www.race-monitor.com" title="Race Monitor"></iframe>
+        <div class="right-container">
+            <iframe id="map-iframe" src="https://hnf.3secondz.com/live/map" title="Live Map"></iframe>
+            <iframe id="clock-iframe" src="https://vclock.kr/time/%EC%84%9C%EC%9A%B8/" title="Seoul Clock"></iframe>
+        </div>
+    </div>
+</body>
+</html>
