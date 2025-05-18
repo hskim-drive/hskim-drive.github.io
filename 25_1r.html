@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>70%/30% Split with Live Clock</title>
+    <title>70%/30% Split with Digital Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            font-family: sans-serif;
+            font-family: 'Orbitron', sans-serif;
         }
         .container {
             display: flex;
@@ -41,7 +42,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
+            font-size: 10vw; /* 매우 큰 글자 */
+            letter-spacing: 0.1em;
         }
     </style>
 </head>
@@ -58,8 +60,8 @@
         function updateClock() {
             const now = new Date();
 
-            // 한국 시간으로 변환 (UTC+9)
-            const koreaOffset = 9 * 60; // 9시간 * 60분
+            // UTC+9 (KST)
+            const koreaOffset = 9 * 60;
             const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
             const koreaTime = new Date(utc + (koreaOffset * 60000));
 
@@ -71,7 +73,7 @@
         }
 
         setInterval(updateClock, 1000);
-        updateClock(); // 첫 실행
+        updateClock();
     </script>
 </body>
 </html>
