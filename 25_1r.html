@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>70%/30% Split with Vertical Right Division</title>
+    <title>70%/30% Split with Live Clock</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
+            font-family: sans-serif;
         }
         .container {
             display: flex;
@@ -32,9 +33,15 @@
             height: 70%;
             width: 100%;
         }
-        #clock-iframe {
+        #clock-container {
             height: 30%;
             width: 100%;
+            background-color: #000;
+            color: #0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
         }
     </style>
 </head>
@@ -43,8 +50,28 @@
         <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=154758&source=www.race-monitor.com" title="Race Monitor"></iframe>
         <div class="right-container">
             <iframe id="map-iframe" src="https://hnf.3secondz.com/live/map" title="Live Map"></iframe>
-            <iframe id="clock-iframe" src="https://vclock.kr/time/%EC%84%9C%EC%9A%B8/" title="Seoul Clock"></iframe>
+            <div id="clock-container">--:--:--</div>
         </div>
     </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            // 한국 시간으로 변환 (UTC+9)
+            const koreaOffset = 9 * 60; // 9시간 * 60분
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const koreaTime = new Date(utc + (koreaOffset * 60000));
+
+            const hours = String(koreaTime.getHours()).padStart(2, '0');
+            const minutes = String(koreaTime.getMinutes()).padStart(2, '0');
+            const seconds = String(koreaTime.getSeconds()).padStart(2, '0');
+
+            document.getElementById('clock-container').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // 첫 실행
+    </script>
 </body>
 </html>
