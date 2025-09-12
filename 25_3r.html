@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>70%/30% Split with Digital Clock</title>
+    <title>70%/30% Split with Countdown Clock</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -42,7 +42,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10vw; /* 매우 큰 글자 */
+            font-size: 10vw;
             letter-spacing: 0.1em;
         }
     </style>
@@ -57,6 +57,9 @@
     </div>
 
     <script>
+        // 종료시간 입력 (24시간 형식, 한국시간 기준)
+        const endTime = "23:00:00";  // 원하는 종료시간으로 바꾸세요 (예: "18:30:00")
+
         function updateClock() {
             const now = new Date();
 
@@ -65,9 +68,24 @@
             const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
             const koreaTime = new Date(utc + (koreaOffset * 60000));
 
-            const hours = String(koreaTime.getHours()).padStart(2, '0');
-            const minutes = String(koreaTime.getMinutes()).padStart(2, '0');
-            const seconds = String(koreaTime.getSeconds()).padStart(2, '0');
+            // 종료시간 객체 만들기
+            const [endH, endM, endS] = endTime.split(":").map(Number);
+            const endDate = new Date(koreaTime);
+            endDate.setHours(endH, endM, endS, 0);
+
+            // 남은 시간 계산 (밀리초 단위)
+            let diff = endDate - koreaTime;
+
+            if (diff < 0) {
+                document.getElementById('clock-container').textContent = "00:00:00";
+                return;
+            }
+
+            const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+            diff %= 1000 * 60 * 60;
+            const minutes = String(Math.floor(diff / (1000 * 60))).padStart(2, '0');
+            diff %= 1000 * 60;
+            const seconds = String(Math.floor(diff / 1000)).padStart(2, '0');
 
             document.getElementById('clock-container').textContent = `${hours}:${minutes}:${seconds}`;
         }
