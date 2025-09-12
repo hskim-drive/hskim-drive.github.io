@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>70%/30% Split with Digital Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .container iframe {
+            border: none;
+        }
+        #left-iframe {
+            width: 30%;
+            height: 100%;
+        }
+        .right-container {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #map-iframe {
+            height: 70%;
+            width: 100%;
+        }
+        #clock-container {
+            height: 30%;
+            width: 100%;
+            background-color: #000;
+            color: #0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10vw; /* 매우 큰 글자 */
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=159921&source=www.race-monitor.com" title="Race Monitor"></iframe>
+        <div class="right-container">
+            <iframe id="map-iframe" src="https://hnf.3secondz.com/live/map" title="Live Map"></iframe>
+            <div id="clock-container">--:--:--</div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            // UTC+9 (KST)
+            const koreaOffset = 9 * 60;
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const koreaTime = new Date(utc + (koreaOffset * 60000));
+
+            const hours = String(koreaTime.getHours()).padStart(2, '0');
+            const minutes = String(koreaTime.getMinutes()).padStart(2, '0');
+            const seconds = String(koreaTime.getSeconds()).padStart(2, '0');
+
+            document.getElementById('clock-container').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
