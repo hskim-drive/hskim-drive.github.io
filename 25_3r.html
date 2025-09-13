@@ -63,10 +63,8 @@
         function updateClock() {
             const now = new Date();
 
-            // UTC+9 (KST)
-            const koreaOffset = 9 * 60;
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const koreaTime = new Date(utc + (koreaOffset * 60000));
+            // 한국 시간으로 변환
+            const koreaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
 
             // 종료시간 객체 만들기
             const [endH, endM, endS] = endTime.split(":").map(Number);
