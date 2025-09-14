@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>70%/30% Split with Countdown Clock</title>
+    <title>70%/30% Split Without Clock</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -26,24 +26,11 @@
         }
         .right-container {
             width: 70%;
-            display: flex;
-            flex-direction: column;
             height: 100%;
         }
         #map-iframe {
-            height: 70%;
+            height: 100%;
             width: 100%;
-        }
-        #clock-container {
-            height: 30%;
-            width: 100%;
-            background-color: #000;
-            color: #0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10vw;
-            letter-spacing: 0.1em;
         }
     </style>
 </head>
@@ -52,113 +39,7 @@
         <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=159921&source=www.race-monitor.com" title="Race Monitor"></iframe>
         <div class="right-container">
             <iframe id="map-iframe" src="https://hnf.3secondz.com/live/map" title="Live Map"></iframe>
-            <div id="clock-container">--:--:--</div>
         </div>
     </div>
-
-    <script>
-        // 종료시간 입력 (24시간 형식, 한국시간 기준)
-        const endTime = "23:00:00";  // 원하는 종료시간으로 바꾸세요 (예: "18:30:00")
-
-        <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>70%/30% Split with Countdown Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: 'Orbitron', sans-serif;
-        }
-        .container {
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-        .container iframe {
-            border: none;
-        }
-        #left-iframe {
-            width: 30%;
-            height: 100%;
-        }
-        .right-container {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        #map-iframe {
-            height: 70%;
-            width: 100%;
-        }
-        #clock-container {
-            height: 30%;
-            width: 100%;
-            background-color: #000;
-            color: #0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10vw;
-            letter-spacing: 0.1em;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=159921&source=www.race-monitor.com" title="Race Monitor"></iframe>
-        <div class="right-container">
-            <iframe id="map-iframe" src="https://hnf.3secondz.com/live/map" title="Live Map"></iframe>
-            <div id="clock-container">--:--:--</div>
-        </div>
-    </div>
-
-    <script>
-        // 종료시간 입력 (24시간 형식, 한국시간 기준)
-        const endTime = "23:00:00";  // 원하는 종료시간으로 바꾸세요 (예: "18:30:00")
-
-        function updateClock() {
-            const now = new Date();
-
-            // 한국 시간으로 변환
-            const koreaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-
-            // 종료시간 객체 만들기
-            const [endH, endM, endS] = endTime.split(":").map(Number);
-            const endDate = new Date(koreaTime);
-            endDate.setHours(endH, endM, endS, 0);
-
-            // 남은 시간 계산 (밀리초 단위)
-            let diff = endDate - koreaTime;
-
-            if (diff < 0) {
-                document.getElementById('clock-container').textContent = "00:00:00";
-                return;
-            }
-
-            const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-            diff %= 1000 * 60 * 60;
-            const minutes = String(Math.floor(diff / (1000 * 60))).padStart(2, '0');
-            diff %= 1000 * 60;
-            const seconds = String(Math.floor(diff / 1000)).padStart(2, '0');
-
-            document.getElementById('clock-container').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
-</body>
-</html>
-
-
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
 </body>
 </html>
