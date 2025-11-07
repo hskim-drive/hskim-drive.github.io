@@ -17,12 +17,24 @@
             height: 100vh;
             width: 100vw;
         }
-        .container iframe {
-            border: none;
-        }
-        #left-iframe {
+        .left-container {
             width: 30%;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .left-container iframe {
+            border: none;
+            flex: 1;
+        }
+        .refresh-btn {
+            width: 100%;
+            padding: 8px 0;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background: #333;
+            color: #fff;
         }
         .right-container {
             width: 70%;
@@ -31,16 +43,29 @@
         #map-iframe {
             height: 100%;
             width: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <iframe id="left-iframe" src="https://api.race-monitor.com/Timing/?raceid=161640&source=www.race-monitor.com" title="Race Monitor"></iframe>
-        <iframe id="left-iframe" src="https://webapp.sportity.com/channel/HNF2025" title="HNF2025"></iframe>
+        <div class="left-container">
+            <iframe src="https://api.race-monitor.com/Timing/?raceid=161640&source=www.race-monitor.com" title="Race Monitor"></iframe>
+
+            <button class="refresh-btn" onclick="refreshSportity()">Sportity 새로고침</button>
+            <iframe id="sportity-iframe" src="https://webapp.sportity.com/channel/HNF2025" title="HNF2025"></iframe>
+        </div>
+
         <div class="right-container">
             <iframe id="map-iframe" src="https://hnf.3secondz.com/live/map" title="Live Map"></iframe>
         </div>
     </div>
+
+    <script>
+        function refreshSportity() {
+            const iframe = document.getElementById('sportity-iframe');
+            iframe.src = iframe.src; // src 재설정 = 해당 iframe만 새로고침
+        }
+    </script>
 </body>
 </html>
